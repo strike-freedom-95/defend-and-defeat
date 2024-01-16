@@ -1990,7 +1990,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: STORY
+  m_text: INSTRUCTION
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9fb6b475347ecb843a9a40fc6f31033c, type: 2}
   m_sharedMaterial: {fileID: 2253938710366200702, guid: 9fb6b475347ecb843a9a40fc6f31033c, type: 2}
@@ -3265,7 +3265,16 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: The story goes like blah blah blah...
+  m_text: 'To move - WASD/Arrow Key
+
+
+    Destroy Enemies before they destroy the
+    bases.
+
+    Collect Power Ups to be at an advantage
+
+    Watch out for traps,
+    they may look like Power Ups...'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9fb6b475347ecb843a9a40fc6f31033c, type: 2}
   m_sharedMaterial: {fileID: 2253938710366200702, guid: 9fb6b475347ecb843a9a40fc6f31033c, type: 2}
