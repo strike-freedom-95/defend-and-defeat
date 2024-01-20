@@ -6,7 +6,6 @@ public class EnemyScript : MonoBehaviour
 {
     GameObject[] m_bases;
     Rigidbody2D m_Rigidbody;
-    int m_currentTargetIndex = 0;
     GameObject m_target;
 
     [SerializeField] float enemyMoveSpeed = 10f;
@@ -14,7 +13,10 @@ public class EnemyScript : MonoBehaviour
     void Start()
     {
         m_bases = GameObject.FindGameObjectsWithTag("Base");
-        m_target = m_bases[(int)Random.Range(0, m_bases.Length)];
+        if(m_bases.Length > 0)
+        {
+            m_target = m_bases[(int)Random.Range(0, m_bases.Length)];
+        }        
         m_Rigidbody = GetComponent<Rigidbody2D>();
     }
 
@@ -22,7 +24,6 @@ public class EnemyScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Debug.Log(m_currentTargetIndex);
         EnemyMovement();        
     }
 

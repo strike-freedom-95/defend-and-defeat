@@ -8,6 +8,11 @@ TagManager:
   - Base
   - Powerup
   - Wall
+  - Spawner
+  - Level Check
+  - Coin
+  - Score
+  - Menu Music
   layers:
   - Default
   - TransparentFX
@@ -59,4 +64,7 @@ TagManager:
     locked: 0
   - name: Sprites
     uniqueID: 4062803445
+    locked: 0
+  - name: Game UI
+    uniqueID: 403187189
     locked: 0

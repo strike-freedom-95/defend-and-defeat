@@ -4920,7 +4920,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 172d1a984c9010f44b8cedddf6a3b61c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyMoveSpeed: 2
+  enemyMoveSpeed: 6
 --- !u!114 &2634228435025509475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4935,6 +4935,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   explosionFX: {fileID: 3521817272885917242, guid: bce9f8fb664691d458f91f026cc04f6c, type: 3}
+  coinPrefab:
+  - {fileID: 2762820721936694967, guid: aa899bcabdac23a4dbfcd58f1e368fbf, type: 3}
+  - {fileID: 6834193849381138336, guid: 53f69ebb1b633ca4b9d38b4e120eac55, type: 3}
+  - {fileID: 3003988973197940359, guid: 9a55ab7317e71ee4dbc1a3bf2b8e9c8d, type: 3}
+  spawnPrefab:
+  - {fileID: 8733635413437480585, guid: e082584cd3a0efb4abcf1d183ac7309d, type: 3}
+  - {fileID: 1623994817983790945, guid: 02df6015a2cb77045918e948da538869, type: 3}
+  - {fileID: 2493795043267330525, guid: 761c1e76cd0cf834a995436fa3ac2f16, type: 3}
+  - {fileID: 5405060772764028974, guid: 06568b10dd0b7ab41ba7a6b8f5c1461b, type: 3}
+  - {fileID: 4700369584258136812, guid: a345b13ba0345d14b99f2f8471ef5cb6, type: 3}
 --- !u!1 &7978095364355880702
 GameObject:
   m_ObjectHideFlags: 0
