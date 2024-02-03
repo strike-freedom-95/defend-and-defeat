@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7978095363487534972}
   - component: {fileID: 7978095363487534974}
   - component: {fileID: 7978095363487534975}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Trail FX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4826,7 +4826,8 @@ GameObject:
   - component: {fileID: 7978095364107146389}
   - component: {fileID: 7978095364107146391}
   - component: {fileID: 2634228435025509475}
-  m_Layer: 0
+  - component: {fileID: 4158894318332065992}
+  m_Layer: 9
   m_Name: Enemy Type 2
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -4887,7 +4888,7 @@ Rigidbody2D:
   m_LinearDrag: 0.5
   m_AngularDrag: 0.1
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 974d36f53d6661c40b0ed5e99ce8cea6, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -4933,8 +4934,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 136c2a701f535d24b918ffc4fe2369c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
-  explosionFX: {fileID: 3521817272885917242, guid: bce9f8fb664691d458f91f026cc04f6c, type: 3}
+  health: 200
+  explosionFX: {fileID: 1883699538572958137, guid: f105f4cdc3bae71428341d049a6093a3, type: 3}
+  collisionSparkFX: {fileID: 3521817272885917242, guid: bce9f8fb664691d458f91f026cc04f6c, type: 3}
   coinPrefab:
   - {fileID: 2762820721936694967, guid: aa899bcabdac23a4dbfcd58f1e368fbf, type: 3}
   - {fileID: 6834193849381138336, guid: 53f69ebb1b633ca4b9d38b4e120eac55, type: 3}
@@ -4945,6 +4947,59 @@ MonoBehaviour:
   - {fileID: 2493795043267330525, guid: 761c1e76cd0cf834a995436fa3ac2f16, type: 3}
   - {fileID: 5405060772764028974, guid: 06568b10dd0b7ab41ba7a6b8f5c1461b, type: 3}
   - {fileID: 4700369584258136812, guid: a345b13ba0345d14b99f2f8471ef5cb6, type: 3}
+--- !u!114 &4158894318332065992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7978095364107146384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ImpulseDefinition:
+    m_ImpulseChannel: 1
+    m_ImpulseShape: 3
+    m_CustomImpulseShape:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_ImpulseDuration: 0.1
+    m_ImpulseType: 0
+    m_DissipationRate: 0.25
+    m_RawSignal: {fileID: 0}
+    m_AmplitudeGain: 1
+    m_FrequencyGain: 1
+    m_RepeatMode: 0
+    m_Randomize: 1
+    m_TimeEnvelope:
+      m_AttackShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_DecayShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_AttackTime: 0
+      m_SustainTime: 0.2
+      m_DecayTime: 0.7
+      m_ScaleWithImpact: 1
+      m_HoldForever: 0
+    m_ImpactRadius: 100
+    m_DirectionMode: 0
+    m_DissipationMode: 2
+    m_DissipationDistance: 100
+    m_PropagationSpeed: 343
+  m_DefaultVelocity: {x: 0, y: -3, z: 0}
 --- !u!1 &7978095364355880702
 GameObject:
   m_ObjectHideFlags: 0
@@ -4955,7 +5010,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7978095364355880689}
   - component: {fileID: 7978095364355880688}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5039,7 +5094,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7978095364788314417}
   - component: {fileID: 7978095364788314416}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5125,7 +5180,8 @@ GameObject:
   - component: {fileID: 2683916622433845980}
   - component: {fileID: 1018193275916822470}
   - component: {fileID: 1669219170486180006}
-  m_Layer: 0
+  - component: {fileID: 2580406587988011970}
+  m_Layer: 9
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9926,3 +9982,99 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!82 &2580406587988011970
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8928513637698293196}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 48a51ddd076ccd44f8ac012161f810b2, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.2
+  m_Pitch: 0.85
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -8,6 +9,7 @@ public class EnemyCollisionScript : MonoBehaviour
 {
     [SerializeField] float health = 100f;
     [SerializeField] ParticleSystem explosionFX;
+    [SerializeField] ParticleSystem collisionSparkFX;
     [SerializeField] GameObject[] coinPrefab;
     [SerializeField] GameObject[] spawnPrefab;
 
@@ -38,16 +40,17 @@ public class EnemyCollisionScript : MonoBehaviour
         }        
     }
 
-    private void EnemyDestruction()
+    public void EnemyDestruction()
     {
+        GetComponent<CinemachineImpulseSource>().GenerateImpulse();
         var FX = Instantiate(explosionFX, transform.position, Quaternion.identity);
         FX.Play();
         Destroy(gameObject);
     }
 
-    private void OnCollisionStay2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Base")
+        if (collision.gameObject.tag == "Base")
         {
             GetComponent<Rigidbody2D>().AddRelativeForce(Vector2.down * 2f, ForceMode2D.Impulse);
         }
@@ -55,6 +58,11 @@ public class EnemyCollisionScript : MonoBehaviour
         if(collision.gameObject.tag == "Player")
         {
             health -= collision.relativeVelocity.magnitude * Random.Range(1, 10);
+        }
+
+        if (collision.gameObject.tag == "Wall")
+        {
+            health -= collision.relativeVelocity.magnitude * Random.Range(1, 5);
         }
     }
 }

@@ -48,7 +48,7 @@ public class LevelManagement : MonoBehaviour
     void ResetGame()
     {
         FindObjectOfType<PostProcessingManipulate>().GameOverEffects();
-        StartCoroutine(SetDelay(2, true));
+        StartCoroutine(SetDelay(3.5f, true));
     }
 
     void NextLevel()

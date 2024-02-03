@@ -25,4 +25,16 @@ public class PostProcessingManipulate : MonoBehaviour
         cg.saturation.value = -100;
         cg.contrast.value = 52;
     }
+
+    public void MenuOn()
+    {
+        cg.saturation.value = -100;
+        cg.contrast.value = 52;
+    }
+
+    public void MenuOff()
+    {
+        cg.saturation.value = 0;
+        cg.contrast.value = 0;
+    }
 }

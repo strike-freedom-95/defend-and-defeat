@@ -351,6 +351,7 @@ GameObject:
   - component: {fileID: 484226904005015204}
   - component: {fileID: 3334562699006812775}
   - component: {fileID: 92846131299411190}
+  - component: {fileID: 411421429785981832}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -526,6 +527,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collectFX: {fileID: 5003753596752368452, guid: 264dca179e30f4d4cb742007722a64ac, type: 3}
+  contactSFX: {fileID: 5713394455643623169, guid: e520a7a4127f647439e8caa151f0ad98, type: 3}
+  contactFX: {fileID: 3521817272885917220, guid: 5be5bf39799c8254290d9ff84c6a3d70, type: 3}
+--- !u!114 &411421429785981832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 484226904005015211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05450d1e666741044895ee5e77b3066e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powerUpCollectFX: {fileID: 5003753596752368452, guid: 264dca179e30f4d4cb742007722a64ac, type: 3}
+  interval: 6
+  shieldPrefab: {fileID: 730127882021522939, guid: 7fba41b528afb374188f9d676cafadff, type: 3}
+  SpeedEffect: {fileID: 249626052132761389, guid: 9c9a888c2f32fbe4483230d471837d51, type: 3}
+  PointsEffect: {fileID: 4748368046616140959, guid: 2866dbe3eda1a5a44abc2f923d59bec8, type: 3}
 --- !u!1 &484226904268405986
 GameObject:
   m_ObjectHideFlags: 0

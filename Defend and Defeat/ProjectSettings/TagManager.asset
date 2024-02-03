@@ -13,6 +13,13 @@ TagManager:
   - Coin
   - Score
   - Menu Music
+  - Game Music
+  - Game Menu
+  - PU1
+  - PU2
+  - PU3
+  - PU4
+  - PU5
   layers:
   - Default
   - TransparentFX
@@ -22,8 +29,8 @@ TagManager:
   - UI
   - SpecialFX
   - Post Processing
-  - 
-  - 
+  - Powerup
+  - Enemies
   - 
   - 
   - 

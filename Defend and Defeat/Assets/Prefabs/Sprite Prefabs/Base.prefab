@@ -749,11 +749,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d7dc798a50c3894db41cc4b13be436b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collisionFX: {fileID: 1883699538572958137, guid: f105f4cdc3bae71428341d049a6093a3, type: 3}
+  collisionFX: {fileID: 3521817272885917242, guid: bce9f8fb664691d458f91f026cc04f6c, type: 3}
   explosionFX: {fileID: 3891789339813665452, guid: 52c716cb646297642bdc795a6b627c5d, type: 3}
   baseHealth: 200
   healthIndicator: {fileID: 6044968073009647128}
   maxhealthIndicator: {fileID: 8611867837406896487}
+  hitWarningSFX: {fileID: 8300000, guid: 670f84ff12888d64f9bea815939ecf38, type: 3}
 --- !u!114 &7562056331388530847
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -10,12 +10,14 @@ public class BaseCollisionHandler : MonoBehaviour
 {
     CinemachineImpulseSource m_ImpSource;
     float m_maxHealth = 0;
+    bool m_warningReset = false;
 
     [SerializeField] ParticleSystem collisionFX;
     [SerializeField] ParticleSystem explosionFX;
     [SerializeField] float baseHealth = 1000f;
     [SerializeField] TextMeshProUGUI healthIndicator;
     [SerializeField] TextMeshProUGUI maxhealthIndicator;
+    [SerializeField] AudioClip hitWarningSFX;
 
     private void Start()
     {
@@ -37,6 +39,7 @@ public class BaseCollisionHandler : MonoBehaviour
     private void BaseDeathSequence()
     {
         m_ImpSource.GenerateImpulse();
+        FindObjectOfType<AudioFXManager>().PlayBaseDestructionSound();
         var FX = Instantiate(explosionFX, transform.position, Quaternion.identity);
         FX.Play();
         Destroy(gameObject);
@@ -46,10 +49,23 @@ public class BaseCollisionHandler : MonoBehaviour
     {        
         if (collision.gameObject.tag == "Enemy")
         {
+            StartCoroutine(Delay());
+            
             baseHealth = Mathf.Clamp(baseHealth - collision.relativeVelocity.magnitude, 0, m_maxHealth);            
             m_ImpSource.GenerateImpulse();
             var FX = Instantiate(collisionFX, collision.transform.position, Quaternion.identity);
             FX.Play();
         }
+    }
+
+    IEnumerator Delay()
+    {
+        if (!m_warningReset)
+        {
+            AudioSource.PlayClipAtPoint(hitWarningSFX, Camera.main.transform.position, 1f);
+            m_warningReset = true;
+        }
+        yield return new WaitForSeconds(5f);
+        m_warningReset = false;
     }
 }
