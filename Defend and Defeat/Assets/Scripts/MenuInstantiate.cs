@@ -17,7 +17,6 @@ public class MenuInstantiate : MonoBehaviour
             
             if(!m_isMenuActivated)
             {
-                Debug.Log("Cliked");
                 ReduceAudioVolume(true);
                 Instantiate(menuView, new Vector2(0, 0), Quaternion.identity);
                 StartCoroutine(PauseDelay());
@@ -31,6 +30,10 @@ public class MenuInstantiate : MonoBehaviour
                     for(int i = 0; i < GameObject.FindGameObjectsWithTag("Game Menu").Length; i++)
                     {
                         Destroy(GameObject.FindGameObjectsWithTag("Game Menu")[i]);
+                    }
+                    for (int i = 0; i < GameObject.FindGameObjectsWithTag("Main Menu").Length; i++)
+                    {
+                        Destroy(GameObject.FindGameObjectsWithTag("Main Menu")[i]);
                     }
                     Time.timeScale = 1f;
                     ReduceAudioVolume(false);

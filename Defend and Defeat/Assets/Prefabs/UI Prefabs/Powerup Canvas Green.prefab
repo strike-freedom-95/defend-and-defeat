@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -3089179446097518392}
   m_Layer: 5
   m_Name: Powerup Canvas Green
-  m_TagString: Untagged
+  m_TagString: PowerUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

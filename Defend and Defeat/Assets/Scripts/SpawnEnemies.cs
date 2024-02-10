@@ -12,6 +12,7 @@ public class SpawnEnemies : MonoBehaviour
     [Header("Spawn Range for Randomizer")]
     [SerializeField] float m_minRange = -10f;
     [SerializeField] float m_maxRange = 10f;
+    [SerializeField] bool isHorizontal = true;
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +25,14 @@ public class SpawnEnemies : MonoBehaviour
         for(int i = 0; i < enemyCount; i++)
         {
             yield return new WaitForSeconds(interval);
-            Instantiate(enemyPrefab, transform.position + new Vector3(Random.Range(m_minRange, m_maxRange), 0, 0), Quaternion.identity);            
+            if(isHorizontal)
+            {
+                Instantiate(enemyPrefab, transform.position + new Vector3(Random.Range(m_minRange, m_maxRange), 0, 0), Quaternion.identity);
+            }
+            else
+            {
+                Instantiate(enemyPrefab, transform.position + new Vector3(0, Random.Range(m_minRange, m_maxRange), 0), Quaternion.identity);
+            }     
         }
         Destroy(gameObject);
     }

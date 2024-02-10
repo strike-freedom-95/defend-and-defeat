@@ -42,7 +42,17 @@ public class BaseCollisionHandler : MonoBehaviour
         FindObjectOfType<AudioFXManager>().PlayBaseDestructionSound();
         var FX = Instantiate(explosionFX, transform.position, Quaternion.identity);
         FX.Play();
+        DestroyPowerupUI();
         Destroy(gameObject);
+    }
+
+    private static void DestroyPowerupUI()
+    {
+        GameObject[] powerUps = GameObject.FindGameObjectsWithTag("PowerUI");
+        for (int i = 0; i < powerUps.Length; i++)
+        {
+            Destroy(powerUps[i]);
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -62,10 +72,10 @@ public class BaseCollisionHandler : MonoBehaviour
     {
         if (!m_warningReset)
         {
-            AudioSource.PlayClipAtPoint(hitWarningSFX, Camera.main.transform.position, 1f);
+            // AudioSource.PlayClipAtPoint(hitWarningSFX, Camera.main.transform.position, 1f);
             m_warningReset = true;
         }
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(9f);
         m_warningReset = false;
     }
 }

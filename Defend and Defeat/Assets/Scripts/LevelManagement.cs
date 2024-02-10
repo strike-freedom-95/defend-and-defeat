@@ -10,9 +10,21 @@ public class LevelManagement : MonoBehaviour
     int enemies;
     int originalBaseCount;
 
+    [SerializeField] GameObject ScoreDisplayPrefab;
+    [SerializeField] GameObject LevelDisplayPrefab;
+    [SerializeField] GameObject StartGameMessage;
+
     private void Start()
     {
         originalBaseCount = GameObject.FindGameObjectsWithTag("Base").Length;
+        Instantiate(ScoreDisplayPrefab, new Vector2(0, 0), Quaternion.identity);
+        Instantiate(LevelDisplayPrefab, new Vector2(0, 0), Quaternion.identity);
+        Instantiate(StartGameMessage, new Vector2(0, 0), Quaternion.identity);
+
+        if (PlayerPrefs.GetInt("Progress", 0) < SceneManager.GetActiveScene().buildIndex)
+        {
+            PlayerPrefs.SetInt("Progress", SceneManager.GetActiveScene().buildIndex);
+        }
     }
 
     void Update()
@@ -26,7 +38,7 @@ public class LevelManagement : MonoBehaviour
         }
         if(bases < originalBaseCount)
         {
-            ResetGame();
+            ResetGame(false);
         }
     }
 
@@ -45,23 +57,45 @@ public class LevelManagement : MonoBehaviour
         bases = GameObject.FindGameObjectsWithTag("Base").Length;
     }
 
-    void ResetGame()
+    public void ResetGame(bool isManual)
+    {        
+        if (!isManual)
+        {
+            FindObjectOfType<PostProcessingManipulate>().GameOverEffects();
+            StartCoroutine(SceneChange(3.5f, true));
+        }
+        else
+        {
+            StartCoroutine(SceneChange(0, true));
+        }
+        
+    }
+
+    void ResetScore()
     {
-        FindObjectOfType<PostProcessingManipulate>().GameOverEffects();
-        StartCoroutine(SetDelay(3.5f, true));
+        int scoreDifference = PlayerPrefs.GetInt("Score") - FindObjectOfType<PlayerCollision>().TempScore();
+        PlayerPrefs.SetInt("Score", scoreDifference);
     }
 
     void NextLevel()
     {
-        StartCoroutine(SetDelay(1, false));
+        StartCoroutine(SceneChange(1, false));
     }
 
-    IEnumerator SetDelay(float interval, bool isReset)
+    IEnumerator SceneChange(float interval, bool isReset)
     {
+        // Destroy(ScoreDisplayPrefab);
+        /*GameObject[] levelCheck = GameObject.FindGameObjectsWithTag("Level Check");
+        for(int i=0; i < levelCheck.Length; i++)
+        {
+            Destroy(levelCheck[i]);
+        }*/
+
         int currentSceneIndex;
         yield return new WaitForSeconds(interval);
         if (isReset)
         {
+            ResetScore();
             currentSceneIndex = SceneManager.GetActiveScene().buildIndex;            
         }
         else
@@ -70,4 +104,6 @@ public class LevelManagement : MonoBehaviour
         }
         SceneManager.LoadScene(currentSceneIndex);
     }
+
+
 }

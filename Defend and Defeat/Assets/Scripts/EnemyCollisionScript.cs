@@ -17,7 +17,6 @@ public class EnemyCollisionScript : MonoBehaviour
     {
         if(health < 0)
         {
-            SpawnCoin();
             SpawnPowerup();
             EnemyDestruction();
         }
@@ -42,6 +41,7 @@ public class EnemyCollisionScript : MonoBehaviour
 
     public void EnemyDestruction()
     {
+        SpawnCoin();
         GetComponent<CinemachineImpulseSource>().GenerateImpulse();
         var FX = Instantiate(explosionFX, transform.position, Quaternion.identity);
         FX.Play();
