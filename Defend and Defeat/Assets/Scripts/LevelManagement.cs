@@ -2,22 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class LevelManagement : MonoBehaviour
 {
     int spawners;
     int bases;
     int enemies;
-    int originalBaseCount;
 
-    [SerializeField] GameObject ScoreDisplayPrefab;
+    // [SerializeField] GameObject ScoreDisplayPrefab;
     [SerializeField] GameObject LevelDisplayPrefab;
     [SerializeField] GameObject StartGameMessage;
 
     private void Start()
     {
-        originalBaseCount = GameObject.FindGameObjectsWithTag("Base").Length;
-        Instantiate(ScoreDisplayPrefab, new Vector2(0, 0), Quaternion.identity);
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
         Instantiate(LevelDisplayPrefab, new Vector2(0, 0), Quaternion.identity);
         Instantiate(StartGameMessage, new Vector2(0, 0), Quaternion.identity);
 
@@ -36,7 +35,11 @@ public class LevelManagement : MonoBehaviour
         {
             NextLevel();
         }
-        if(bases < originalBaseCount)
+        /* if(bases < originalBaseCount)
+        {
+            ResetGame(false);
+        } */
+        if (bases == 0)
         {
             ResetGame(false);
         }
@@ -58,7 +61,8 @@ public class LevelManagement : MonoBehaviour
     }
 
     public void ResetGame(bool isManual)
-    {        
+    {
+        ResetSequence();
         if (!isManual)
         {
             FindObjectOfType<PostProcessingManipulate>().GameOverEffects();
@@ -68,13 +72,25 @@ public class LevelManagement : MonoBehaviour
         {
             StartCoroutine(SceneChange(0, true));
         }
-        
+
+    }
+
+    private static void ResetSequence()
+    {        
+        if(GameObject.FindGameObjectWithTag("Laser Attack") != null)
+        {
+            GameObject.FindGameObjectWithTag("Laser Attack").GetComponent<ParticleSystem>().Stop();
+        }
+        foreach (var powerButtons in GameObject.FindGameObjectsWithTag("Power Buttons"))
+        {
+            powerButtons.GetComponent<Button>().interactable = false;
+        }
     }
 
     void ResetScore()
     {
-        int scoreDifference = PlayerPrefs.GetInt("Score") - FindObjectOfType<PlayerCollision>().TempScore();
-        PlayerPrefs.SetInt("Score", scoreDifference);
+        //int scoreDifference = PlayerPrefs.GetInt("Score") - FindObjectOfType<PlayerCollision>().TempScore();
+        //PlayerPrefs.SetInt("Score", scoreDifference);
     }
 
     void NextLevel()
@@ -95,7 +111,7 @@ public class LevelManagement : MonoBehaviour
         yield return new WaitForSeconds(interval);
         if (isReset)
         {
-            ResetScore();
+            // ResetScore();
             currentSceneIndex = SceneManager.GetActiveScene().buildIndex;            
         }
         else

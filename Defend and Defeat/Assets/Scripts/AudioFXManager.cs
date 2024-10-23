@@ -27,4 +27,9 @@ public class AudioFXManager : MonoBehaviour
     {
         m_soundSource.PlayOneShot(sounds[2]);
     }
+
+    public void PlayShieldDestructionSound()
+    {
+        m_soundSource.PlayOneShot(sounds[3]);
+    }
 }

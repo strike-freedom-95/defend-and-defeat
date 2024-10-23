@@ -1,43 +1,55 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameMusicScript : MonoBehaviour
 {
-    [SerializeField] bool isMenuMusic = false;
-    [SerializeField] AudioClip[] menuMusics;
-    [SerializeField] AudioClip[] gameMusics;
+    [SerializeField] AudioClip[] music;
+    [SerializeField] Canvas musicPlayer;
+    [SerializeField]
+    string[] musicNames;
+    [SerializeField] string artistName;
+
+    AudioSource m_audioSource;
+    int m_index;
 
     private void Awake()
     {
-        if (FindObjectsOfType<GameMusicScript>().Length > 1)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            DontDestroyOnLoad(gameObject);
-        }
+        DontDestroyOnLoad(gameObject);
     }
 
     private void Start()
     {
-        AudioSource musicSource = GetComponent<AudioSource>();
-        if (isMenuMusic)
+        m_audioSource = GetComponent<AudioSource>();
+        m_audioSource.clip = music[0];
+        m_audioSource.Play();
+        SetMusicDetails();
+    }
+
+    private void Update()
+    {
+        if(!m_audioSource.isPlaying)
         {
-            musicSource.clip = menuMusics[Random.Range(0, menuMusics.Length)];
-            musicSource.Play();
-        }
-        else
-        {
-            musicSource.clip = gameMusics[Random.Range(0, gameMusics.Length)];
-            musicSource.Play();
+            Debug.Log("Song Changed");
+            ShuffleMusic();
         }
     }
 
-    public void StopGameMusic()
+    void ShuffleMusic()
     {
-        Destroy(gameObject);
+        m_index = Random.Range(0, music.Length);
+        AudioClip nextMusic = music[m_index];
+        m_audioSource.clip = nextMusic;
+        m_audioSource.Play();
+        SetMusicDetails();
+    }
+
+    void SetMusicDetails()
+    {
+        var inst = Instantiate(musicPlayer, Vector2.zero, Quaternion.identity);
+        inst.GetComponentsInChildren<TextMeshProUGUI>()[0].text = musicNames[m_index];
+        inst.GetComponentsInChildren<TextMeshProUGUI>()[1].text = artistName;
     }
 }

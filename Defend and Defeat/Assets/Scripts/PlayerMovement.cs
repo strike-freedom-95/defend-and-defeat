@@ -5,16 +5,26 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     Rigidbody2D m_rigidBody;
-    int m_originalBases;
+    float m_hMovement, m_vMovement;
+    int multiplier = 1;
 
     [SerializeField] float moveSpeed = 5f;
+    [SerializeField] Joystick joystick;
+    [SerializeField] ParticleSystem fire;
+
     void Start()
     {
         m_rigidBody = GetComponent<Rigidbody2D>();
-        m_originalBases = GameObject.FindGameObjectsWithTag("Base").Length;
     }
 
-    // Update is called once per frame
+    private void Update()
+    {
+        // m_hMovement = Input.GetAxisRaw("Horizontal"); ;
+        // m_vMovement = Input.GetAxisRaw("Vertical");
+
+        m_hMovement = joystick.Horizontal;
+        m_vMovement = joystick.Vertical;
+    }
     void FixedUpdate()
     {
         Move();
@@ -22,11 +32,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
-        float hMovement = Input.GetAxis("Horizontal");
-        float vMovement = Input.GetAxis("Vertical");
-        if(GameObject.FindGameObjectsWithTag("Base").Length >= m_originalBases)
+        if(GameObject.FindGameObjectsWithTag("Base").Length != 0)
         {
-            m_rigidBody.velocity = new Vector2(hMovement * moveSpeed, vMovement * moveSpeed);
+            m_rigidBody.velocity = new Vector2(m_hMovement, m_vMovement) * moveSpeed * multiplier;
         }       
     }
 
@@ -35,5 +43,19 @@ public class PlayerMovement : MonoBehaviour
         moveSpeed = newSpeed;
     }
 
+    public void PlayerTurboMode()
+    {
+        multiplier = 2;
+        StartCoroutine(DefaultSpeedAfterDelay());
+    }
 
+    IEnumerator DefaultSpeedAfterDelay()
+    {
+        GetComponent<PlayerCollision>().SetInstantKillMode(true);
+        fire.Play();
+        yield return new WaitForSeconds(5);
+        multiplier = 1;
+        GetComponent<PlayerCollision>().SetInstantKillMode(false);
+        fire.Stop();
+    }
 }

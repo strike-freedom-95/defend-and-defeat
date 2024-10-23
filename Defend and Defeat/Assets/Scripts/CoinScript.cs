@@ -6,7 +6,7 @@ public class CoinScript : MonoBehaviour
 {
     [SerializeField] int score = 100;
 
-    public int GetScore()
+    public int GetPower()
     {
         return score;
     }

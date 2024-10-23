@@ -15,13 +15,15 @@ TagManager:
   - Menu Music
   - Game Music
   - Game Menu
-  - PU1
-  - PU2
-  - PU3
-  - PU4
-  - PU5
   - PowerUI
   - Main Menu
+  - Obstacle
+  - Tutorial Page
+  - Laser Attack
+  - Power Buttons
+  - Joystick
+  - Shield
+  - Music Player
   layers:
   - Default
   - TransparentFX
@@ -33,8 +35,8 @@ TagManager:
   - Post Processing
   - Powerup
   - Enemies
-  - 
-  - 
+  - Shield
+  - Portal
   - 
   - 
   - 
@@ -73,6 +75,9 @@ TagManager:
     locked: 0
   - name: Sprites
     uniqueID: 4062803445
+    locked: 0
+  - name: Collectible
+    uniqueID: 4110357709
     locked: 0
   - name: Game UI
     uniqueID: 403187189

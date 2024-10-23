@@ -5,22 +5,21 @@ using UnityEngine;
 
 public class PlayerCollision : MonoBehaviour
 {
-    [SerializeField] ParticleSystem collectFX;
-    [SerializeField] GameObject contactSFX;
-    [SerializeField] GameObject contactFX;
-    [SerializeField] AudioClip contact;
+    [SerializeField] GameObject[] collectFX;
+    [SerializeField] GameObject energyWave;
+    [SerializeField] int maxPower = 10000;
 
-    bool isScoreMultiplierActive = false;
-    int multiplier = 1;
-    int tempScore = 0;
+    bool isInstantDeathActive = false;
+    int power;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.tag == "Enemy")
         {
-            AudioSource.PlayClipAtPoint(contact, transform.position, 1f);
-            Instantiate(contactSFX, transform.position, Quaternion.identity);
-            Instantiate(contactFX, transform.position, Quaternion.identity);
+            if (isInstantDeathActive)
+            {
+                collision.gameObject.GetComponent<EnemyCollisionScript>().InstantDeath();
+            }
             GetComponent<CinemachineImpulseSource>().GenerateImpulse();
         }
     }
@@ -29,40 +28,49 @@ public class PlayerCollision : MonoBehaviour
     {
         if(collision.gameObject.tag == "Coin")
         {
-            // int score = collision.GetComponent<CoinScript>().GetScore();
-            var FX = Instantiate(collectFX, collision.transform.position, Quaternion.identity);
-            ScoreCalculation(collision);
-            FX.Play();
-            Destroy(collision.gameObject);
+            PowerCalculation(collision.gameObject.GetComponent<CoinScript>().GetPower());
+            if (power < maxPower)
+            {
+                if (collision.gameObject.GetComponent<CoinScript>().GetPower() == 100)
+                {
+                    Instantiate(collectFX[0], transform.position, Quaternion.identity);
+                }
+                else if (collision.gameObject.GetComponent<CoinScript>().GetPower() == 250)
+                {
+                    Instantiate(collectFX[1], transform.position, Quaternion.identity);
+                }
+                else if (collision.gameObject.GetComponent<CoinScript>().GetPower() == 500)
+                {
+                    Instantiate(collectFX[2], transform.position, Quaternion.identity);
+                }
+                Instantiate(energyWave, transform.position, Quaternion.identity);
+                Destroy(collision.gameObject);
+            }            
         }
     }
 
-    private void ScoreCalculation(Collider2D collision)
+    private void PowerCalculation(int collected)
     {
-        int score = PlayerPrefs.GetInt("Score", 0) + (collision.GetComponent<CoinScript>().GetScore() * multiplier);
-        PlayerPrefs.SetInt("Score", score);
-        tempScore += (collision.GetComponent<CoinScript>().GetScore() * multiplier);
+        power = Mathf.Clamp(power + (collected * 2), 0, maxPower);
     }
 
-    private void Update()
+    public int GetCurrentCollectedPower()
     {
-        if (isScoreMultiplierActive)
-        {
-            multiplier = 2;
-        }
-        else
-        {
-            multiplier = 1;
-        }
+        return power;
     }
 
-    public void SetScoreMultiplier(bool status)
+    public void ResetCollectedPower()
     {
-        isScoreMultiplierActive = status;
+        power = 0;
     }
 
-    public int TempScore()
+    public int GetMaxPower()
     {
-        return tempScore;
+        return maxPower;
+    }
+
+    public void SetInstantKillMode(bool status)
+    {
+        isInstantDeathActive = status;
     }
 }

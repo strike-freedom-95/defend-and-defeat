@@ -11,6 +11,11 @@ public class SkipToNextScene : MonoBehaviour
     bool isSelected = true;
     bool buttonClickFlag = true;
 
+    private void Start()
+    {
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
+    }
+
     void Update()
     {
         if (Input.anyKey)
@@ -37,7 +42,7 @@ public class SkipToNextScene : MonoBehaviour
     {
         if (isSelected)
         {
-            AudioSource.PlayClipAtPoint(select, Camera.main.transform.position, 0.4f);
+            AudioSource.PlayClipAtPoint(select, Camera.main.transform.position);
             isSelected = false;
         }        
     }

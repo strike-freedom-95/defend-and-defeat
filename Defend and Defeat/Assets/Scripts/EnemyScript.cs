@@ -13,10 +13,7 @@ public class EnemyScript : MonoBehaviour
     void Start()
     {
         m_bases = GameObject.FindGameObjectsWithTag("Base");
-        if(m_bases.Length > 0)
-        {
-            m_target = m_bases[(int)Random.Range(0, m_bases.Length)];
-        }        
+        SetTarget();      
         m_Rigidbody = GetComponent<Rigidbody2D>();
     }
 
@@ -36,6 +33,18 @@ public class EnemyScript : MonoBehaviour
             angle = Mathf.Atan2(relative.x, relative.y) * Mathf.Rad2Deg;
             transform.Rotate(0, 0, -angle);
             m_Rigidbody.AddRelativeForce(Vector2.up * enemyMoveSpeed);
-        }        
+        }
+        else
+        {
+            SetTarget();
+        }
+    }
+
+    void SetTarget()
+    {
+        if (m_bases.Length > 0)
+        {
+            m_target = m_bases[(int)Random.Range(0, m_bases.Length)];
+        }
     }
 }

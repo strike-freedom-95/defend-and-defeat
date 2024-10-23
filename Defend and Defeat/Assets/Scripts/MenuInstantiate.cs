@@ -17,26 +17,23 @@ public class MenuInstantiate : MonoBehaviour
             
             if(!m_isMenuActivated)
             {
-                ReduceAudioVolume(true);
-                Instantiate(menuView, new Vector2(0, 0), Quaternion.identity);
-                StartCoroutine(PauseDelay());
-                m_isMenuActivated = true;
-                FindObjectOfType<PostProcessingManipulate>().MenuOn();
+                // ReduceAudioVolume(true);
+                ShowPauseMenu();
             }
             else
             {
                 if(menuView != null)
                 {                    
-                    for(int i = 0; i < GameObject.FindGameObjectsWithTag("Game Menu").Length; i++)
+                    /* for(int i = 0; i < GameObject.FindGameObjectsWithTag("Game Menu").Length; i++)
                     {
                         Destroy(GameObject.FindGameObjectsWithTag("Game Menu")[i]);
                     }
                     for (int i = 0; i < GameObject.FindGameObjectsWithTag("Main Menu").Length; i++)
                     {
                         Destroy(GameObject.FindGameObjectsWithTag("Main Menu")[i]);
-                    }
+                    }*/
                     Time.timeScale = 1f;
-                    ReduceAudioVolume(false);
+                    // ReduceAudioVolume(false);
                     m_isMenuActivated = false;
                     FindObjectOfType<PostProcessingManipulate>().MenuOff();
                 }                
@@ -44,7 +41,15 @@ public class MenuInstantiate : MonoBehaviour
         }
     }
 
-    public void ReduceAudioVolume(bool status)
+    public void ShowPauseMenu()
+    {
+        Instantiate(menuView, new Vector2(0, 0), Quaternion.identity);
+        StartCoroutine(PauseDelay());
+        m_isMenuActivated = true;
+        FindObjectOfType<PostProcessingManipulate>().MenuOn();
+    }
+
+    /* public void ReduceAudioVolume(bool status)
     {
         GameObject[] musicPlayers = GameObject.FindGameObjectsWithTag("Game Music");
         for(int i = 0; i < musicPlayers.Length; i++)
@@ -58,7 +63,7 @@ public class MenuInstantiate : MonoBehaviour
                 musicPlayers[i].GetComponent<AudioSource>().Play();
             }
         }
-    }
+    }*/
 
     IEnumerator PauseDelay()
     {

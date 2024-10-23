@@ -23,7 +23,7 @@ public class PostProcessingManipulate : MonoBehaviour
     public void GameOverEffects()
     {
         cg.saturation.value = -100;
-        cg.contrast.value = 52;
+        cg.contrast.value = 100;
     }
 
     public void MenuOn()

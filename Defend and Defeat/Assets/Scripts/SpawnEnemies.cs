@@ -6,25 +6,25 @@ public class SpawnEnemies : MonoBehaviour
 {
     [SerializeField] GameObject enemyPrefab;
     [SerializeField] float enemyCount = 10f;
-    [SerializeField] float spawnInterval = 5f;
+    [SerializeField] float minSpawnTime, maxSpawnTime;
     [SerializeField] float delay = 2f;
 
     [Header("Spawn Range for Randomizer")]
-    [SerializeField] float m_minRange = -10f;
-    [SerializeField] float m_maxRange = 10f;
+    [SerializeField] float m_minRange, m_maxRange;
     [SerializeField] bool isHorizontal = true;
 
     // Start is called before the first frame update
     void Start()
     {
-        Invoke("SpawnDelay", delay);
+        StartCoroutine(SpawnAtInterval());
     }
 
-    IEnumerator SpawnAtInterval(float interval)
-    {        
-        for(int i = 0; i < enemyCount; i++)
+    IEnumerator SpawnAtInterval()
+    {
+        yield return new WaitForSeconds(delay);
+        for (int i = 0; i < enemyCount; i++)
         {
-            yield return new WaitForSeconds(interval);
+            yield return new WaitForSeconds(Random.Range(minSpawnTime, maxSpawnTime));
             if(isHorizontal)
             {
                 Instantiate(enemyPrefab, transform.position + new Vector3(Random.Range(m_minRange, m_maxRange), 0, 0), Quaternion.identity);
@@ -34,11 +34,12 @@ public class SpawnEnemies : MonoBehaviour
                 Instantiate(enemyPrefab, transform.position + new Vector3(0, Random.Range(m_minRange, m_maxRange), 0), Quaternion.identity);
             }     
         }
-        Destroy(gameObject);
+        SpawnerDeath();
     }
 
-    void SpawnDelay()
+    void SpawnerDeath()
     {
-        StartCoroutine(SpawnAtInterval(spawnInterval));
+        GetComponent<Animator>().SetTrigger("isDead");
+        Destroy(gameObject, 1f);
     }
 }

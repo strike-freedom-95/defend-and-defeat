@@ -17,9 +17,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject CreditsPage;
 
     GameObject[] gameMusic;
+    string m_url = "https://game-mechanoid.itch.io/";
+
 
     private void Start()
     {
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
         gameMusic = GameObject.FindGameObjectsWithTag("Game Music");
         highScoreDisplay.text = "Highscore : " + PlayerPrefs.GetInt("Highscore", 0).ToString();
         int progress = PlayerPrefs.GetInt("Progress", 0);
@@ -67,8 +70,9 @@ public class UIManager : MonoBehaviour
 
     public void OnStartButtonClicked()
     {
-        AudioSource.PlayClipAtPoint(select, Camera.main.transform.position, 0.4f);
+        AudioSource.PlayClipAtPoint(select, Camera.main.transform.position);
         Transition();
+        PlayerPrefs.SetInt("Progress", 0);
         Instantiate(fadeIn, new Vector2(0, 0), Quaternion.identity);
         for (int i = 0; i < gameMusic.Length; i++)
         {
@@ -84,7 +88,7 @@ public class UIManager : MonoBehaviour
     public void OnContinueButtonClicked()
     {
         PlayerPrefs.SetInt("Score", 0);
-        AudioSource.PlayClipAtPoint(select, Camera.main.transform.position, 0.4f);
+        AudioSource.PlayClipAtPoint(select, Camera.main.transform.position);
         StartCoroutine(ContinueGame());
         Instantiate(fadeIn, new Vector2(0, 0), Quaternion.identity);
         for (int i = 0; i < gameMusic.Length; i++)
@@ -119,7 +123,7 @@ public class UIManager : MonoBehaviour
 
     public void OnQuitButtonClicked()
     {
-        AudioSource.PlayClipAtPoint(select, Camera.main.transform.position, 0.4f);
+        AudioSource.PlayClipAtPoint(select, Camera.main.transform.position);
         Application.Quit();
     }
 
@@ -144,5 +148,10 @@ public class UIManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         SceneManager.LoadScene("Main Menu");
+    }
+
+    public void OnItchIOButtonPressed()
+    {
+        Application.OpenURL(m_url);
     }
 }

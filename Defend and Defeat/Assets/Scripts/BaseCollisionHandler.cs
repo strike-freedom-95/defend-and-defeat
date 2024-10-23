@@ -11,48 +11,36 @@ public class BaseCollisionHandler : MonoBehaviour
     CinemachineImpulseSource m_ImpSource;
     float m_maxHealth = 0;
     bool m_warningReset = false;
+    bool m_isBaseDestroyed = false;
 
-    [SerializeField] ParticleSystem collisionFX;
-    [SerializeField] ParticleSystem explosionFX;
-    [SerializeField] float baseHealth = 1000f;
+    [SerializeField] GameObject collisionFX;
+    [SerializeField] GameObject explosionFX;
+    [SerializeField] float baseHealth = 100f;
     [SerializeField] TextMeshProUGUI healthIndicator;
-    [SerializeField] TextMeshProUGUI maxhealthIndicator;
-    [SerializeField] AudioClip hitWarningSFX;
+    // [SerializeField] TextMeshProUGUI maxhealthIndicator;
 
     private void Start()
     {
         m_ImpSource = GetComponent<CinemachineImpulseSource>();
         m_maxHealth = baseHealth;
-        healthIndicator.text = m_maxHealth.ToString();
-        maxhealthIndicator.text = baseHealth.ToString();
+        UpdateHealth();
     }
 
     private void Update()
     {
-        if(baseHealth == 0)
+        if(baseHealth == 0 && !m_isBaseDestroyed)
         {
+            m_isBaseDestroyed = true;
             BaseDeathSequence();
-        }
-        healthIndicator.text = Mathf.Round(baseHealth).ToString();
+        }        
     }
 
     private void BaseDeathSequence()
     {
         m_ImpSource.GenerateImpulse();
         FindObjectOfType<AudioFXManager>().PlayBaseDestructionSound();
-        var FX = Instantiate(explosionFX, transform.position, Quaternion.identity);
-        FX.Play();
-        DestroyPowerupUI();
+        Instantiate(explosionFX, transform.position, Quaternion.identity);
         Destroy(gameObject);
-    }
-
-    private static void DestroyPowerupUI()
-    {
-        GameObject[] powerUps = GameObject.FindGameObjectsWithTag("PowerUI");
-        for (int i = 0; i < powerUps.Length; i++)
-        {
-            Destroy(powerUps[i]);
-        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -61,10 +49,10 @@ public class BaseCollisionHandler : MonoBehaviour
         {
             StartCoroutine(Delay());
             
-            baseHealth = Mathf.Clamp(baseHealth - collision.relativeVelocity.magnitude, 0, m_maxHealth);            
+            baseHealth = Mathf.Clamp(baseHealth - collision.gameObject.GetComponent<EnemyCollisionScript>().GetDamage(), 0, m_maxHealth);            
             m_ImpSource.GenerateImpulse();
-            var FX = Instantiate(collisionFX, collision.transform.position, Quaternion.identity);
-            FX.Play();
+            Instantiate(collisionFX, collision.transform.position, Quaternion.identity);
+            UpdateHealth();
         }
     }
 
@@ -77,5 +65,10 @@ public class BaseCollisionHandler : MonoBehaviour
         }
         yield return new WaitForSeconds(9f);
         m_warningReset = false;
+    }
+
+    void UpdateHealth()
+    {
+        healthIndicator.text = Mathf.Round(baseHealth).ToString() + " %";
     }
 }

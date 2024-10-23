@@ -178,9 +178,6 @@ public class PowerupScript : MonoBehaviour
         StopCoroutine(Powerup4Activate());
         StopCoroutine(Powerup1Activate());
         Instantiate(PointsEffect, new Vector2(0, 0), Quaternion.identity);
-        GetComponent<PlayerCollision>().SetScoreMultiplier(true);
-        yield return new WaitForSeconds(10);
-        GetComponent<PlayerCollision>().SetScoreMultiplier(false);
         m_PU5_active = false;
     }
 

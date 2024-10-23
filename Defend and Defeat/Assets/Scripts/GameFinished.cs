@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 public class GameFinished : MonoBehaviour
 {
     GameObject[] m_musicPlayers;
-    
+    string m_url = "https://game-mechanoid.itch.io/";
+
     [SerializeField] AudioClip select;
 
     public void GoBackToMain()
@@ -14,20 +15,17 @@ public class GameFinished : MonoBehaviour
         StartCoroutine(Delay());
     }
 
-    private void Start()
-    {
-        m_musicPlayers = GameObject.FindGameObjectsWithTag("Game Music");
-        for(int i = 0;  i < m_musicPlayers.Length; i++)
-        {
-            Destroy(m_musicPlayers[i]);
-        }
-        // Instantiate(MusicPrefab);
-    }
-
     IEnumerator Delay()
     {
-        AudioSource.PlayClipAtPoint(select, Camera.main.transform.position, 0.4f);
+        AudioSource.PlayClipAtPoint(select, Camera.main.transform.position, 1f);
         yield return new WaitForSeconds(0.4f);        
         SceneManager.LoadScene("Main Menu");
+    }
+
+    public void VisitItchIOPage()
+    {
+        AudioSource.PlayClipAtPoint(select, Camera.main.transform.position, 1f);
+        // System.Diagnostics.Process.Start(m_url);
+        Application.OpenURL(m_url);
     }
 }
